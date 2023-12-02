@@ -1,0 +1,172 @@
+\documentclass[14pt, a4paper]{extarticle}
+
+\usepackage[paper=A4]{typearea}
+\usepackage{lipsum}
+
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\DeclareGraphicsExtensions{.jpg,.png}
+\usepackage{csvsimple}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\usepackage[english,russian]{babel}
+
+\usepackage{fontspec} 
+\usepackage{unicode-math}
+\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
+\setmainfont[Ligatures={TeX,Historic}]{Times New Roman}
+\setmonofont{Courier New}
+%\setmathfont{XITSMath-Regular}
+%\newfontfamily\cyrillicfonttt[Script=Cyrillic]{Courier New}
+
+\usepackage{xcolor}
+
+\usepackage{array}
+\newcommand\ChangeRT[1]{\noalign{\hrule height #1}}
+
+\usepackage{tabularx}
+\newcolumntype{s}{>{\raggedright\arraybackslash}X}
+%\renewcommand{\tabularxcolumn}[1]{m{#1}} % Вертикальное центрирование текста
+
+\usepackage{indentfirst} %отступ первой строки первого абзаца
+\linespread{1.25}
+
+\setlength{\footskip}{1cm}
+\usepackage{geometry}
+\geometry{left=3cm}
+\geometry{right=1cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+\setlength{\parindent}{1.25cm}
+
+\usepackage{enumitem}
+\setlist{left=\parindent, labelsep=1cm, itemsep=0pt, topsep=0pt}
+
+\usepackage[final]{pdfpages}
+
+\usepackage{titlesec} % оформление заголовков
+
+\titleformat{\section}[block]
+	{\newpage\bfseries\fontsize{18pt}{21.6pt}\selectfont}
+        {\thesection}
+        {1em}{}
+\titleformat{name=\section,numberless}[block]
+	{\newpage\bfseries\fontsize{18pt}{21.6pt}\selectfont}
+        {}
+        {0em}{}{}
+\titlespacing{\section}
+ {\parindent}% space at the left
+ {0em}% space before
+ {10mm}% space after
+\titleformat{\subsection}[block]
+	{\bfseries\hspace{\parindent}\fontsize{16pt}{19.2pt}\selectfont}
+        {\thesubsection}
+        {1em}{}
+
+% Отображать только заголовки первого уровня
+%\setcounter{tocdepth}{1}
+
+\usepackage{etoolbox}
+
+\usepackage{nameref}
+
+\usepackage{xurl}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    breaklinks=true
+}
+\urlstyle{same}
+       
+\usepackage{float}
+\usepackage{caption}
+
+\usepackage{newfloat}
+\DeclareCaptionType[name=Листинг, placement=htbp]{listing}
+
+\usepackage{fancyvrb}
+
+\DeclareCaptionLabelSeparator{emdash}{\;\textemdash\;}
+\captionsetup[figure]{name={Рисунок}, labelsep=emdash, justification=centering, position=above, singlelinecheck=off, font={small, bf}, labelfont=bf, skip=6pt}
+\captionsetup[table]{name={Таблица}, labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=6pt, margin=0.6cm}
+\captionsetup[listing]{name={Листинг}, labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=-16pt, margin=0.6cm}
+
+% Нумерация по разделам
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{listing}{section}
+
+\usepackage{ragged2e}
+\usepackage{microtype}
+
+\justifying
+\tolerance=500
+\hyphenpenalty=10000 % отключение переноса
+\emergencystretch=3em
+
+\usepackage{setspace}
+
+\usepackage{multirow}
+
+\usepackage[
+citestyle=gost-numeric,
+style=gost-numeric, 
+blockpunct=emdash,
+backend=biber,
+sorting=none
+]{biblatex}
+
+\defcounter{biburlnumpenalty}{3000}
+\defcounter{biburlucpenalty}{6000}
+\defcounter{biburllcpenalty}{9000}
+
+\DeclareFieldFormat{url}{Режим доступа: #1}
+\DeclareFieldFormat{urldate}{(Дата обращения: #1)}
+\renewcommand*{\entrysetpunct}{\par\nopunct\!\!}
+
+
+\defbibheading{bibliography}[\bibname]{%
+  \section*{\centering #1}%
+  \markboth{#1}{#1}}
+
+\usepackage{pdflscape}
+\usepackage{everypage}
+
+\newcommand{\Lpagenumber}{\ifdim\textwidth=\linewidth\else\bgroup
+  \dimendef\margin=0 %use \margin instead of \dimen0
+  \ifodd\value{page}\margin=\oddsidemargin
+  \else\margin=\evensidemargin
+  \fi
+  \raisebox{\dimexpr-\topmargin-\headheight-\headsep-0.5\linewidth}[0pt][0pt]{%
+    \rlap{\hspace{\dimexpr-\margin+\textheight+\footskip}%
+    \llap{\rotatebox{90}{\thepage}}}}%
+\egroup\fi}
+\AddEverypageHook{\Lpagenumber}%
+
+\usepackage{tocloft}
+\setlength{\cftsecnumwidth}{0pt}
+\setlength{\cftsecindent}{0pt}% Remove indent for \section
+\setlength{\cftsubsecindent}{0pt}% Remove indent for \subsection
+\setlength{\cftsubsubsecindent}{0pt}% Remove indent for \subsubsection
+\setlength{\cftbeforesecskip}{0pt}% Change spacing between sections
+\renewcommand{\cftsecaftersnumb}{\hspace{1.5em}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftdotsep}{1.25}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cfttoctitlefont}{\hfil \bfseries \large}
+
+\usepackage{lipsum} 
+
+\begin{document}
+
+\lipsum[2-4]
+
+\end{document}
