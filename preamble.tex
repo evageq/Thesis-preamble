@@ -1,5 +1,7 @@
 \documentclass[14pt, a4paper]{extarticle}
 
+\usepackage{listings}
+
 \usepackage[paper=A4]{typearea}
 \usepackage{lipsum}
 
@@ -50,7 +52,7 @@
 \usepackage{titlesec} % оформление заголовков
 
 \titleformat{\section}[block]
-	{\newpage\bfseries\fontsize{18pt}{21.6pt}\selectfont}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont}
         {\thesection}
         {1em}{}
 \titleformat{name=\section,numberless}[block]
@@ -97,6 +99,7 @@
 \captionsetup[figure]{name={Рисунок}, labelsep=emdash, justification=centering, position=above, singlelinecheck=off, font={small, bf}, labelfont=bf, skip=6pt}
 \captionsetup[table]{name={Таблица}, labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=6pt, margin=0.6cm}
 \captionsetup[listing]{name={Листинг}, labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=-16pt, margin=0.6cm}
+\captionsetup[lstlisting]{labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=6pt, margin=0cm}
 
 % Нумерация по разделам
 \counterwithin{figure}{section}
@@ -163,10 +166,283 @@ sorting=none
 \renewcommand{\cftsecpagefont}{\normalfont}
 \renewcommand{\cfttoctitlefont}{\hfil \bfseries \large}
 
+% Поддержка листингов
+\usepackage{listings}
+\lstdefinestyle{gost}{
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    keepspaces=true,
+    showspaces=false,          
+    showstringspaces=false,
+    frame=single
+}
+\lstset{style=gost}
+
 \usepackage{lipsum} 
 
 \begin{document}
 
-\lipsum[2-4]
+\pretocmd{\section}{\newpage}{}{}
+
+\def\contentsname{СОДЕРЖАНИЕ}
+
+\pagenumbering{gobble}
+\begin{titlepage}
+\includepdf[pages=-]{misc/Gostev}
+\end{titlepage}
+\pagenumbering{arabic}
+\setcounter{page}{4}
+\tableofcontents
+
+\section*{ВВЕДЕНИЕ}
+%%% start Актуальность темы
+В современном мире, где информационные техно
+
+\section{АНАЛИЗ ДАННЫХ ПОСТАВЛЕННОЙ ЗАДАЧИ}
+Предприятие, для которого проектируется сеть, представляет собой сложную структуру,
+которая включает в себя различные единицы и отделы. Она состоит из нескольких зданий 
+и локаций, каждая из которых имеет свои специфические требования к сетевому оборудованию 
+и связи. При этом предполагается, что на каждое рабочее место необходимо обеспечить пропускную 
+способность в 100 Мбит/с, что обусловлено стандартами отрасли и требованиями к качеству обслуживания. 
+Важно отметить, что руководителям и заместителям руководителей нужно выделить пропускную способность в 
+1 Гбит/с, кроме руководителей точек присутствия и складов.
+
+Главный штаб предприятия обслуживает 200 человек, в его руководство входит директор предприятия, а 
+также коммерческий отдел, состоящий из коммерческих директоров. Следующим элементом структуры 
+предприятия являются филиалы, их три, и в каждом из них работает 70 сотрудников. 
+Склады предприятия представлены четырьмя объектами, на каждом из которых работают 30 сотрудников. 
+Есть 25 точек присутствия и каждая обслуживает 6 сотрудников.
+
+В Таблице \ref{table:1:mainDepStructure} представлена структура предприятия в главном здании, 
+в последнем столбце указаны должностные требования к пропускной
+способности сети передачи данных.
+\begin{table}[H]
+\centering
+\small
+\caption{Структура предприятия в главном здании}
+\begin{tabular}{|m{5cm}|m{3cm}|m{3cm}|}
+\hline
+\textbf{Название отдела} & \textbf{Количество людей} & \textbf{Пропускная способность, МБит/с} \\
+\hline
+Руководство предприятия & 1 & 1000 \\
+\hline
+Коммерческий отдел & 3 & 100 \\
+\hline
+Бухгалтерия & 11 & 100 \\
+\hline
+Отдел кадров & 20 & 100 \\
+\hline
+Отдел закупок & 20 & 100 \\
+\hline
+Отдел продаж & 55 & 100 \\
+\hline
+Административно-хозяйственная служба & 15 & 100 \\
+\hline
+ИТ-департамент & 40 & 100 \\
+\hline
+Профильные отделы & 35 & 100 \\
+\hline
+\end{tabular}
+\label{table:1:mainDepStructure}
+\end{table}
+
+
+
+\section[ПЛАНИРОВАНИЕ АДРЕСАЦИИ И МАРШРУТИЗАЦИИ]{ПЛАНИРОВАНИЕ АДРЕСАЦИИ И \\ МАРШРУТИЗАЦИИ}
+На основе данных о структуре предприятия,
+необходимо настроить IP-адресацию в каждом элементе
+предприятия. Для обеспечения рабочих мест IP-адресами, достаточно взять частные адреса класса "C".
+
+
+Любой отдел будет доступен из любого другого.
+Каждый элемент предприятия содержит относительно небольшое количество конечных узлов, 
+а сетевая топология меняется медленно. В контексте этих условий, применение 
+статической маршрутизации представляется наиболее подходящим и эффективным подходом, 
+по сравнению с динамической маршрутизацией.\cite{habr-routing}
+
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\small
+\caption{Планирование IP-адресации для главного здания}
+\begin{tabular}{|m{3cm}|m{2cm}|m{2cm}|m{2cm}|m{2.3cm}|m{3cm}|m{2.2cm}|m{2.6cm}|m{3.6cm}|}
+\hline
+\textbf{Отдел} & \textbf{Требуемый размер} & \textbf{Выделено адресов} & \textbf{Остаток свободных адресов} & \textbf{IP адрес подсети} & \textbf{Маска подсети} & \textbf{Префикс маски} & \textbf{Диапазон адресов} & \textbf{Широковещание} \\
+\hline
+Отдел продаж & 55+2 & 64 & 7 & 192.168.0.0 & 255.255.255.192 & /26 & 192.168.0.1 - 192.168.0.62 & 192.168.0.63 \\
+\hline
+ИТ-департамент & 40+2 & 64 & 22 & 192.168.0.64 & 255.255.255.192 & /26 & 192.168.0.65 - 192.168.0.126 & 192.168.0.127 \\
+\hline
+Профильные отделы & 35+2 & 64 & 27 & 192.168.0.128 & 255.255.255.192 & /26 & 192.168.0.129 - 192.168.0.190 & 192.168.0.191 \\
+\hline
+Отдел кадров & 20+2 & 32 & 10 & 192.168.0.192 & 255.255.255.224 & /27 & 192.168.0.193 - 192.168.0.222 & 192.168.0.223 \\
+\hline
+Отдела закупок & 20+2 & 32 & 10 & 192.168.0.224 & 255.255.255.224 & /27 & 192.168.0.225 - 192.168.0.254 & 192.168.0.255 \\
+\hline
+АХО & 15+2 & 32 & 15 & 192.168.1.0 & 255.255.255.224 & /27 & 192.168.1.1 - 192.168.1.30 & 192.168.1.31 \\
+\hline
+Бухгалтерия & 11+2 & 16 & 3 & 192.168.1.32 & 255.255.255.240 & /28 & 192.168.1.33 - 192.168.1.46 & 192.168.1.47 \\
+\hline
+Коммерческий отдел & 3+2 & 8 & 3 & 192.168.1.48 & 255.255.255.248 & /29 & 192.168.1.49 - 192.168.1.54 & 192.168.1.55 \\
+\hline
+Руководство предприятия & 1+2 & 8 & 3 & 192.168.1.56 & 255.255.255.248 & /29 & 192.168.1.57 - 192.168.1.62 & 192.168.1.63 \\
+\hline
+\end{tabular}
+\label{table:2:mainDepIPplanning}
+\end{table}
+\end{landscape}
+\newpage
+
+
+\section{НАСТРОЙКА И ТЕСТИРОВАНИЕ СЕТИ}
+В данном пункте выполняется настройка и тестирование сети передачи
+данных, основанной на ранее разработанном прототипе. Процесс реализации
+сети сосредоточен на самой большой площадке предприятия, которая является
+штаб-квартирой.
+
+Конфигурация маршрутизатора представлена на Листинге \ref{list:ar1}.
+\begin{listing}[H]
+\caption{Конфигурация AR1\label{list:ar1}}
+\begin{Verbatim}[frame=single, fontsize=\footnotesize]
+#
+sysname Huawei
+#
+aaa 
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default 
+ domain default_admin 
+ local-user admin password cipher OOCM4m($F4ajUn1vMEIBNUw#
+ local-user admin service-type http
+#
+firewall zone Local
+ priority 16
+#
+interface Ethernet0/0/0
+#
+interface Ethernet0/0/1
+#
+interface Serial0/0/0
+ link-protocol ppp
+#
+interface Serial0/0/1
+ link-protocol ppp
+#
+interface Serial0/0/2
+ link-protocol ppp
+#
+interface Serial0/0/3
+ link-protocol ppp
+#
+interface GigabitEthernet0/0/0
+\end{Verbatim}
+\end{listing}
+\begin{listing}[H]
+\caption*{Продолжение листинга\;\ref{list:ar1}}
+\begin{Verbatim}[frame=single, fontsize=\footnotesize]
+#
+interface NULL0
+#
+ip route-static 192.168.0.0 255.255.255.192 192.168.110.1
+ip route-static 192.168.0.0 255.255.255.192 192.168.111.1 preference 70
+ip route-static 192.168.0.64 255.255.255.192 192.168.110.1
+ip route-static 192.168.0.64 255.255.255.192 192.168.111.1 preference 70
+ip route-static 192.168.0.128 255.255.255.192 192.168.110.1
+ip route-static 192.168.0.128 255.255.255.192 192.168.111.1 preference 70
+ip route-static 192.168.0.192 255.255.255.224 192.168.110.1
+ip route-static 192.168.0.192 255.255.255.224 192.168.111.1 preference 70
+ip route-static 192.168.0.224 255.255.255.224 192.168.110.1
+ip route-static 192.168.0.224 255.255.255.224 192.168.111.1 preference 70
+ip route-static 192.168.1.0 255.255.255.224 192.168.110.1
+ip route-static 192.168.1.0 255.255.255.224 192.168.111.1 preference 70
+ip route-static 192.168.1.32 255.255.255.240 192.168.110.1
+ip route-static 192.168.1.32 255.255.255.240 192.168.111.1 preference 70
+ip route-static 192.168.1.48 255.255.255.248 192.168.110.1
+ip route-static 192.168.1.48 255.255.255.248 192.168.111.1 preference 70
+ip route-static 192.168.1.56 255.255.255.248 192.168.110.1
+ip route-static 192.168.1.56 255.255.255.248 192.168.111.1 preference 70
+#
+user-interface con 0
+user-interface vty 0 4
+user-interface vty 16 20
+#
+return 
+\end{Verbatim}
+\end{listing}
+\newpage
+
+\begin{listing}[H]
+\caption{Конфигурация SL2-9\label{list:sl2_9}}
+\begin{Verbatim}[frame=single, fontsize=\footnotesize]
+
+#
+sysname Huawei
+#
+vlan batch 11 to 19
+#
+stp mode stp
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+drop illegal-mac alarm
+#
+diffserv domain default
+#
+drop-profile default
+#
+aaa 
+authentication-scheme default
+authorization-scheme default
+accounting-scheme default
+domain default 
+domain default_admin 
+local-user admin password simple admin
+local-user admin service-type http
+#
+interface Vlanif1
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+port link-type access
+port default vlan 19
+#
+interface GigabitEthernet0/0/2
+port link-type access
+port default vlan 15
+#
+interface GigabitEthernet0/0/3
+port link-type trunk
+port trunk allow-pass vlan 11 to 19
+#
+interface GigabitEthernet0/0/4
+port link-type trunk
+port trunk allow-pass vlan 11 to 19
+#
+interface GigabitEthernet0/0/5
+#
+interface GigabitEthernet0/0/6
+#
+interface GigabitEthernet0/0/7
+#
+interface GigabitEthernet0/0/8
+#
+\end{Verbatim}
+\end{listing}
+\newpage
+
+\lstinputlisting[caption={Конфигурация SL2-10\label{list:sl2_10}}, firstline=1, lastline=43]{misc/config1.txt}
+\newpage
+
+\lstinputlisting[caption={Next}, firstline=51]{misc/config1.txt}
+
+\section*{ЗАКЛЮЧЕНИЕ} 
+\addcontentsline{toc}{section}{ЗАКЛЮЧЕНИЕ}
+бла-бла-бла.
 
 \end{document}
