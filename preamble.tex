@@ -56,7 +56,7 @@
         {\thesection}
         {1em}{}
 \titleformat{name=\section,numberless}[block]
-	{\bfseries\fontsize{18pt}{21.6pt}\selectfont}
+	{\centering\bfseries\fontsize{18pt}{21.6pt}\selectfont}
         {}
         {0em}{}{}
 \titlespacing{\section}
@@ -454,5 +454,31 @@ interface GigabitEthernet0/0/8
 %\nocite{*} print everything
 \printbibliography[title=СПИСОК ИСПОЛЬЗУЕМЫХ ИСТОЧНИКОВ]\addcontentsline{toc}{section}{СПИСОК ИСПОЛЬЗУЕМЫХ ИСТОЧНИКОВ}
 \endgroup
+
+\section*{ПРИЛОЖЕНИЯ}
+\addcontentsline{toc}{section}{ПРИЛОЖЕНИЯ}
+\begin{raggedright}
+Приложение А --- Тестирование работоспособности сети.
+\end{raggedright}
+
+
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\titleformat{name=\section}[display]
+	{\newpage\normalfont\centering}
+        {\bfseries Приложение\ \thesection}{0em}{}{}
+%\renewcommand{\section}{\Asbuk{section}}
+\section{Тестирование работоспособности сети}
+
+Для проверки адресации предлагается отправить эхо-запросы от компьютера руководителя к остальным отделам, а также к маршрутизатору.
+
+На Рисунке\;\ref{fig:first}представлена проверка эхо-запросов из руководства к отделам.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{misc/first}
+\caption{Эхо-запросы к отделам из руководства\label{fig:first}}
+\end{figure}
+
+
 
 \end{document}
