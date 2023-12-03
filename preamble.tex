@@ -56,7 +56,7 @@
         {\thesection}
         {1em}{}
 \titleformat{name=\section,numberless}[block]
-	{\newpage\bfseries\fontsize{18pt}{21.6pt}\selectfont}
+	{\bfseries\fontsize{18pt}{21.6pt}\selectfont}
         {}
         {0em}{}{}
 \titlespacing{\section}
@@ -138,6 +138,8 @@ sorting=none
 \defbibheading{bibliography}[\bibname]{%
   \section*{\centering #1}%
   \markboth{#1}{#1}}
+
+\addbibresource{misc/thesis5.bib}
 
 \usepackage{pdflscape}
 \usepackage{everypage}
@@ -444,5 +446,13 @@ interface GigabitEthernet0/0/8
 \section*{ЗАКЛЮЧЕНИЕ} 
 \addcontentsline{toc}{section}{ЗАКЛЮЧЕНИЕ}
 бла-бла-бла.
+
+\begingroup
+\let\itshape\upshape
+\sloppy
+%\raggedright
+%\nocite{*} print everything
+\printbibliography[title=СПИСОК ИСПОЛЬЗУЕМЫХ ИСТОЧНИКОВ]\addcontentsline{toc}{section}{СПИСОК ИСПОЛЬЗУЕМЫХ ИСТОЧНИКОВ}
+\endgroup
 
 \end{document}
