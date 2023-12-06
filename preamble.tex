@@ -20,8 +20,10 @@
 \defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
 \setmainfont[Ligatures={TeX,Historic}]{Times New Roman}
 \setmonofont{Courier New}
-%\setmathfont{XITSMath-Regular}
-%\newfontfamily\cyrillicfonttt[Script=Cyrillic]{Courier New}
+\setmathfont{XITSMath-Regular.otf}
+\newfontfamily\cyrillicfonttt[Script=Cyrillic]{Courier New}
+\babelfont{sf}{Droid Sans}
+\numberwithin{equation}{section}
 
 \usepackage{xcolor}
 
@@ -462,6 +464,24 @@ interface GigabitEthernet0/0/8
 \newpage
 
 \lstinputlisting[caption={Next}, firstline=51]{misc/config1.txt}
+
+\begin{equation}
+    E=mc^2 \label{eq:energy}
+    \end{equation}
+
+\section{Формулы}
+Формулы
+Mbit \(\text{Mbit}\)
+МБит \(\text{МБит}\)
+
+{\sffamily
+Mbit \(\mathrm{Mbit}\)
+МБит \(\text{МБит}\)
+}
+
+\begin{equation}
+p=100 \times 100 \;\frac{\text{Мбит}}{\text{с}} \times 40 \% + 20 \;\text{узлов} \times 1000 \;\frac{\text{Мбит}}{\text{с}}\times 40 \% = 24000\;\frac{\text{Мбит}}{\text{с}}
+\end{equation}
 
 \section*{ЗАКЛЮЧЕНИЕ} 
 \addcontentsline{toc}{section}{ЗАКЛЮЧЕНИЕ}
