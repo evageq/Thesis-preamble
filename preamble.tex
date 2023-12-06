@@ -26,6 +26,8 @@
 \babelfont{sf}{Droid Sans}
 \numberwithin{equation}{section}
 
+\usepackage{chngcntr}
+
 \usepackage{xcolor}
 
 \usepackage{array}
@@ -116,17 +118,7 @@
                      font={singlespacing, small, it}, 
                      labelfont=it, 
                      skip=0pt, 
-                     margin=0.6cm}
-
-\captionsetup[listing]{name={Листинг}, 
-                       labelsep=emdash, 
-                       justification=raggedright, 
-                       position=top, 
-                       singlelinecheck=off, 
-                       font={singlespacing, small, it}, 
-                       labelfont=it, 
-                       skip=-16pt, 
-                       margin=0.6cm}
+                     margin=0cm}
 
 \captionsetup[lstlisting]{labelsep=emdash, 
                           justification=raggedright, 
@@ -134,7 +126,7 @@
                           singlelinecheck=off, 
                           font={singlespacing, small, it}, 
                           labelfont=it, 
-                          skip=6pt, 
+                          skip=0pt, 
                           margin=0cm}
 
 
@@ -208,7 +200,7 @@ sorting=none
 % Поддержка листингов
 \usepackage{listings}
 \lstdefinestyle{gost}{
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\fontsize{10pt}{10pt}\linespread{1}\selectfont,
     breakatwhitespace=false,
     breaklines=true,
     keepspaces=true,
@@ -221,6 +213,8 @@ sorting=none
 \usepackage{lipsum} 
 
 \begin{document}
+
+\counterwithin{lstlisting}{section}
 
 \pretocmd{\section}{\newpage}{}{}
 
@@ -239,6 +233,8 @@ sorting=none
 В современном мире, где информационные техно
 
 \section{АНАЛИЗ ДАННЫХ ПОСТАВЛЕННОЙ ЗАДАЧИ}
+
+
 Предприятие, для которого проектируется сеть, представляет собой сложную структуру,
 которая включает в себя различные единицы и отделы. Она состоит из нескольких зданий 
 и локаций, каждая из которых имеет свои специфические требования к сетевому оборудованию 
@@ -361,6 +357,7 @@ sorting=none
 сети сосредоточен на самой большой площадке предприятия, которая является
 штаб-квартирой.
 
+\section{listing verbatim}
 Конфигурация маршрутизатора представлена на Листинге \ref{list:ar1}.
 fdgdf
 \begin{listing}[H]
@@ -400,6 +397,8 @@ interface Serial0/0/3
 interface GigabitEthernet0/0/0
 \end{Verbatim}
 \end{listing}
+text after
+
 \begin{listing}[H]
 \caption*{Продолжение листинга\;\ref{list:ar1}}
 \begin{Verbatim}[frame=single, fontsize=\footnotesize]
@@ -496,11 +495,71 @@ interface GigabitEthernet0/0/8
 \end{listing}
 \newpage
 
+\section{lstinputlisting command}
 \lstinputlisting[caption={Конфигурация SL2-10fdsgfggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
 \label{list:sl2_10}}, firstline=1, lastline=43]{misc/config1.txt}
 \newpage
 
 \lstinputlisting[caption={Next}, firstline=51]{misc/config1.txt}
+
+\section{begin lstlisting command}
+\ref{list:sl2_99}
+\begin{lstlisting}[caption={Конфигурация SL2-9 ппппппппппппппппппппппппппппппп
+    пппппппппппппппппппппппппппппппппппппппппппппппп\label{list:sl2_99}}]
+sysname Huawei
+#
+vlan batch 11 to 19
+#
+stp mode stp
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+drop illegal-mac alarm
+#
+diffserv domain default
+#
+drop-profile default
+#
+aaa 
+authentication-scheme default
+authorization-scheme default
+accounting-scheme default
+domain default 
+domain default_admin 
+local-user admin password simple admin
+local-user admin service-type http
+#
+interface Vlanif1
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+port link-type access
+port default vlan 19
+#
+interface GigabitEthernet0/0/2
+port link-type access
+port default vlan 15
+#
+interface GigabitEthernet0/0/3
+port link-type trunk
+port trunk allow-pass vlan 11 to 19
+#
+interface GigabitEthernet0/0/4
+port link-type trunk
+port trunk allow-pass vlan 11 to 19
+#
+interface GigabitEthernet0/0/5
+#
+interface GigabitEthernet0/0/6
+#
+interface GigabitEthernet0/0/7
+#
+interface GigabitEthernet0/0/8
+#
+\end{lstlisting}
 
 \begin{equation}
     E=mc^2 \label{eq:energy}
