@@ -5,6 +5,7 @@
 \usepackage[paper=A4]{typearea}
 \usepackage{lipsum}
 
+\usepackage{caption}
 \usepackage{graphicx}
 \graphicspath{{./images/}}
 \DeclareGraphicsExtensions{.jpg,.png}
@@ -90,7 +91,7 @@
 \urlstyle{same}
        
 \usepackage{float}
-\usepackage{caption}
+\usepackage{graphicx,kantlipsum,setspace}
 
 \usepackage{newfloat}
 \DeclareCaptionType[name=Листинг, placement=htbp]{listing}
@@ -98,10 +99,44 @@
 \usepackage{fancyvrb}
 
 \DeclareCaptionLabelSeparator{emdash}{\;\textemdash\;}
-\captionsetup[figure]{name={Рисунок}, labelsep=emdash, justification=centering, position=above, singlelinecheck=off, font={small, bf}, labelfont=bf, skip=6pt}
-\captionsetup[table]{name={Таблица}, labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=0pt, margin=0.6cm}
-\captionsetup[listing]{name={Листинг}, labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=-16pt, margin=0.6cm}
-\captionsetup[lstlisting]{labelsep=emdash, justification=raggedright, position=top, singlelinecheck=off, font={small, it}, labelfont=it, skip=6pt, margin=0cm}
+\captionsetup[figure]{name={Рисунок}, 
+                      labelsep=emdash, 
+                      justification=centering, 
+                      position=above, 
+                      singlelinecheck=off, 
+                      font={singlespacing, small, bf},
+                      labelfont=bf, 
+                      skip=6pt}
+
+\captionsetup[table]{name={Таблица}, 
+                     labelsep=emdash, 
+                     justification=raggedright, 
+                     position=top, 
+                     singlelinecheck=off, 
+                     font={singlespacing, small, it}, 
+                     labelfont=it, 
+                     skip=0pt, 
+                     margin=0.6cm}
+
+\captionsetup[listing]{name={Листинг}, 
+                       labelsep=emdash, 
+                       justification=raggedright, 
+                       position=top, 
+                       singlelinecheck=off, 
+                       font={singlespacing, small, it}, 
+                       labelfont=it, 
+                       skip=-16pt, 
+                       margin=0.6cm}
+
+\captionsetup[lstlisting]{labelsep=emdash, 
+                          justification=raggedright, 
+                          position=top, 
+                          singlelinecheck=off, 
+                          font={singlespacing, small, it}, 
+                          labelfont=it, 
+                          skip=6pt, 
+                          margin=0cm}
+
 
 % Нумерация по разделам
 \counterwithin{figure}{section}
@@ -290,7 +325,7 @@ sorting=none
 \begin{table}[H]
 \centering
 \small
-\caption{Планирование IP-адресации для главного здания}
+\caption{Планирование IP-адресации для главного здания апппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппп}
 \begin{tabular}{|m{3cm}|m{2cm}|m{2cm}|m{2cm}|m{2.3cm}|m{3cm}|m{2.2cm}|m{2.6cm}|m{3.6cm}|}
 \hline
 \textbf{Отдел} & \textbf{Требуемый размер} & \textbf{Выделено адресов} & \textbf{Остаток свободных адресов} & \textbf{IP адрес подсети} & \textbf{Маска подсети} & \textbf{Префикс маски} & \textbf{Диапазон адресов} & \textbf{Широковещание} \\
@@ -327,6 +362,7 @@ sorting=none
 штаб-квартирой.
 
 Конфигурация маршрутизатора представлена на Листинге \ref{list:ar1}.
+fdgdf
 \begin{listing}[H]
 \caption{Конфигурация AR1\label{list:ar1}}
 \begin{Verbatim}[frame=single, fontsize=\footnotesize]
@@ -399,7 +435,7 @@ return
 \newpage
 
 \begin{listing}[H]
-\caption{Конфигурация SL2-9\label{list:sl2_9}}
+\caption{Конфигурация SL2-9 ппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппппп\label{list:sl2_9}}
 \begin{Verbatim}[frame=single, fontsize=\footnotesize]
 
 #
@@ -460,7 +496,8 @@ interface GigabitEthernet0/0/8
 \end{listing}
 \newpage
 
-\lstinputlisting[caption={Конфигурация SL2-10\label{list:sl2_10}}, firstline=1, lastline=43]{misc/config1.txt}
+\lstinputlisting[caption={Конфигурация SL2-10fdsgfggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+\label{list:sl2_10}}, firstline=1, lastline=43]{misc/config1.txt}
 \newpage
 
 \lstinputlisting[caption={Next}, firstline=51]{misc/config1.txt}
@@ -482,6 +519,8 @@ Mbit \(\mathrm{Mbit}\)
 \begin{equation}
 p=100 \times 100 \;\frac{\text{Мбит}}{\text{с}} \times 40 \% + 20 \;\text{узлов} \times 1000 \;\frac{\text{Мбит}}{\text{с}}\times 40 \% = 24000\;\frac{\text{Мбит}}{\text{с}}
 \end{equation}
+
+
 
 \section*{ЗАКЛЮЧЕНИЕ} 
 \addcontentsline{toc}{section}{ЗАКЛЮЧЕНИЕ}
@@ -516,7 +555,7 @@ p=100 \times 100 \;\frac{\text{Мбит}}{\text{с}} \times 40 \% + 20 \;\text{�
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{misc/first}
-\caption{Эхо-запросы к отделам из руководства\label{fig:first}}
+\caption{Эхо-запросы к отделам из руководства ппппппппппппппппппппппппппппппппппппппппппппппппппппппппп\label{fig:first}}
 \end{figure}
 
 
